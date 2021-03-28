@@ -450,7 +450,6 @@ def auto_install():
             hotkey('win', 'r')
             hotkey('ctrl', 'v')
             hotkey('enter')
-            count = 100
             while True:
                 try:
                     program = Application().connect(title="Autodesk 3ds Max 2014")
@@ -468,6 +467,7 @@ def auto_install():
                         pass
 
                     if program.top_window().child_window(title="完成").exists():
+                        program.top_window().child_window(title="完成").wait("ready", timeout=10)
                         program.top_window()['完成'].click_input()
                         txt_change(prom_name=each, menu_change=menu_change)
                         break
@@ -511,6 +511,7 @@ def auto_install():
                         pass
 
                     if program.top_window().child_window(title="完成").exists():
+                        program.top_window().child_window(title="完成").wait("ready", timeout=10)
                         program.top_window()['完成'].click_input()
                         txt_change(prom_name=each, menu_change=menu_change)
                         break
