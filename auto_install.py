@@ -126,6 +126,12 @@ def auto_install():
                            'VCRedist': 'Visual C++ 运行库 安装完成！程序即将退出',
                            'NF3': '.Net Framework 安装完成！程序即将退出'}
                 txt_change(prom_name=each, menu_change=menu_change)  # 安装成功修改menu文件
+                while True:
+                    try:
+                        if program.window(title_re='信息').child_window(title=ok_dict[each]).exists():
+                            break
+                    except:
+                        sleep(1)
                 program.window(title_re='信息').child_window(title=ok_dict[each]).wait('ready', timeout=80)
                 program.window(title_re='信息').child_window(title="确定").click_input()
             else:
@@ -361,6 +367,7 @@ def auto_install():
                         pass
                     else:
                         system('taskkill /IM cloudmusic.exe /F')
+                        sleep(3)
                         break
             else:
                 failure.extend(format_menu(each.split()))
@@ -443,7 +450,7 @@ def auto_install():
             hotkey('win', 'r')
             hotkey('ctrl', 'v')
             hotkey('enter')
-
+            count = 100
             while True:
                 try:
                     program = Application().connect(title="Autodesk 3ds Max 2014")
