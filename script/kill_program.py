@@ -21,13 +21,17 @@ def kill_program(title: str or list, backend: str = "win32", time: int = 10) -> 
                 temp.kill()
                 break
     else:  # 结束的进程有多个标题
-        time *= 2
         while time:
             for each in title:
                 try:
                     temp = Application().connect(title=each)
                 except:
-                    sleep(1)
-                    time -= 1
+                    if time <= 0:
+                        break
+                    else:
+                        sleep(1)
+                        time -= 1
                 else:
                     temp.kill()
+                    time = 0
+                    break

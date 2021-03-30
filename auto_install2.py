@@ -20,7 +20,7 @@ from crack.prcc2018_cra import pr_crack
 from crack.max2014_cra import cra_3dmax
 from crack.cad2007_cra import cad2007_cra
 from crack.t20_cra import t20_cra
-import sys
+# import sys
 from pyperclip import copy, paste
 import tkinter as tk
 from script.choose_dir import choose_dir
@@ -32,13 +32,8 @@ class Ui:
         self.choose = r'D:\Program Files'  # 安装目录
 
     def auto_install(self):
-        """
-        安装程序的主函数
-        :param install_path: 程序安装路径
-        :return:
-        """
         choose = self.choose
-        sys.stderr = open('stdout.log', 'a')  # 错误信息输出到文件
+        # sys.stderr = open('stdout.log', 'a')  # 错误信息输出到文件
         start_time = (strftime("%H:%M", localtime()))  # 获取运行程序时的开始时间
         failure = []  # 保存安装失败的软件名称
         menu = load_menu()  # 读取安装目录下的menu.txt获取需要安装的文件
@@ -109,7 +104,7 @@ class Ui:
                         1: ["安装", "Button", 'click', 6]}
 
                 program = Application(backend=main_window[1]).start(join(getcwd(), 'app_pkg', 'Winrar', 'Winrar.exe'))
-
+                sleep(2)
                 if install(main_window=main_window[0], window_backend=main_window[1], step=step, program=program,
                            install_path=join(choose, each), edit_value=0, special=True):
                     time = 6
@@ -246,7 +241,7 @@ class Ui:
 
             if each == "2345explorer":
                 sleep_time = [5, 1]  # 各图片的等待时间
-                grayscale = [True, False]  # 各图片是否使用灰度搜索
+                grayscale = [False, False]  # 各图片是否使用灰度搜索
                 skewing = [[300, 0], [0, 0]]  # x、y坐标偏移
 
                 Application().start(join(getcwd(), "app_pkg", each, '2345explorer_k56008174.exe'))  # 打开指定的安装程序
@@ -255,7 +250,8 @@ class Ui:
                                           grayscale_list=grayscale, skewing_list=skewing, paste_identi=True)  # 采用全图片匹配
                 if result:
                     txt_change(prom_name=each, menu_change=menu_change)
-                    kill_program(title=['2345网址导航－开创中国百年品牌（已创建11年整） - 2345加速浏览器 10.14', '网络不稳定或断网 - 2345加速浏览器 10.14'])
+                    kill_program(title=['2345网址导航－开创中国百年品牌（已创建11年整） - 2345加速浏览器 10.14', '网络不稳定或断网 - 2345加速浏览器 10.14'],
+                                 time=30)
                 else:
                     failure.extend(format_menu(each.split()))
 
@@ -351,6 +347,8 @@ class Ui:
                 while True:
                     if not ps_cc.is_process_running():
                         break
+                    else:
+                        sleep(2)
                 txt_change(prom_name=each, menu_change=menu_change)
                 kill_program(title='Adobe Photoshop CC 2018')
                 ps_crack()
@@ -374,6 +372,8 @@ class Ui:
                 while True:
                     if not pr_cc.is_process_running():
                         break
+                    else:
+                        sleep(2)
                 txt_change(prom_name=each, menu_change=menu_change)
                 kill_program(title='Adobe Premiere Pro CC 2018')
                 pr_crack()
@@ -453,8 +453,8 @@ class Ui:
 
             if each == "2345pinyin":
                 sleep_time = [5, 1, 1, 10]  # 各图片的等待时间
-                grayscale = [True, True, True, True]  # 各图片是否使用灰度搜索
-                skewing = [[40, 0], [0, 0], [0, 0], [0, 0]]  # x、y坐标偏移
+                grayscale = [False, True, True, True]  # 各图片是否使用灰度搜索
+                skewing = [[50, 0], [0, 0], [0, 0], [0, 0]]  # x、y坐标偏移
 
                 Application().start(join(getcwd(), "app_pkg", each, '2345pinyin_k56008174.exe'))  # 打开指定的安装程序
 
@@ -681,7 +681,7 @@ class Ui:
         self.path = tk.StringVar()  # 动态显示选择的路径
         self.path.set(self.choose)
 
-        tk.Label(self.root, text="安装位置：").grid(row=0, column=0, padx=0, pady=4)  # 纯文字显示
+        tk.Label(self.root, text="安 装 路 径：").grid(row=0, column=0, padx=0, pady=4)  # 纯文字显示
 
         tk.Label(self.root, textvariable=self.path).grid(row=0, column=1, padx=0, pady=4)  # 显示路径的label
 
