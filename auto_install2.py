@@ -653,12 +653,20 @@ class Ui:
 
         end_time = strftime("%H:%M", localtime())  # 获取程序安装结束时的时间
         menu = format_menu(menu)
-        labelframe1 = tk.LabelFrame(self.root, text="", height=80, width=300)  # 信息区
-        labelframe1.grid(row=1, column=0, columnspan=10, padx=10, pady=10)
-        labelframe1.propagate(0)  # 使组件大小不变，此时width才起作用
-        tk.Label(labelframe1,
-                 text=f"程序安装完毕，用时{running_time(start_time, end_time)}分钟，共选择了{len(menu)}个软件,\n安装失败的软件为：{','.join(failure)}",
-                 font=(', 8')).pack(fill="both", expand="yes")
+        if len(failure) != 0:
+            labelframe1 = tk.LabelFrame(self.root, text="", height=80, width=300)  # 信息区
+            labelframe1.grid(row=1, column=0, columnspan=10, padx=10, pady=10)
+            labelframe1.propagate(0)  # 使组件大小不变，此时width才起作用
+            tk.Label(labelframe1,
+                     text=f"程序安装完毕，用时{running_time(start_time, end_time)}分钟，共选择了{len(menu)}个软件,\n安装失败的软件为：{','.join(failure)}",
+                     font=(', 8')).pack(fill="both", expand="yes")
+        elif len(failure) == 0:
+            labelframe1 = tk.LabelFrame(self.root, text="", height=80, width=300)  # 信息区
+            labelframe1.grid(row=1, column=0, columnspan=10, padx=10, pady=10)
+            labelframe1.propagate(0)  # 使组件大小不变，此时width才起作用
+            tk.Label(labelframe1,
+                     text=f"程序安装完毕，用时{running_time(start_time, end_time)}分钟，共选择了{len(menu)}个软件",
+                     font=(', 10')).pack(fill="both", expand="yes")
 
     def auto_install_run(self):
         _thread.start_new_thread(self.auto_install, ())
