@@ -46,7 +46,7 @@ def install_from_png(app_name: str, confidence: int or float,
                         click(x, y)
                         send_keys('{END}')
                         send_keys('+{HOME}')
-                        send_keys(join(install_path, app_name))
+                        send_keys(join(install_path, app_name), with_spaces=True)
                         count = 0
                     elif paste_identi:
                         copy(join(install_path, app_name))
