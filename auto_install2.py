@@ -1,4 +1,3 @@
-from easygui import textbox
 from time import localtime, strftime
 from time import sleep
 from os.path import join
@@ -30,7 +29,7 @@ import _thread
 
 class Ui:
     def __init__(self):
-        self.choose = r'D:\Program Files (x86)'  # 安装目录
+        self.choose = r'D:\Program Files'  # 安装目录
 
     def auto_install(self):
         """
@@ -113,12 +112,13 @@ class Ui:
 
                 if install(main_window=main_window[0], window_backend=main_window[1], step=step, program=program,
                            install_path=join(choose, each), edit_value=0, special=True):
-
-                    while True:
+                    time = 6
+                    while time:
                         try:
                             temp = Application().connect(title="WinRAR 简体中文版安装")
                         except:
-                            pass
+                            sleep(1)
+                            time -= 1
                         else:  # 未抛出异常时说明程序成功链接
                             for button in ["确定", "完成"]:
                                 temp2 = temp.window(title='WinRAR 简体中文版安装').child_window(title=button).wait('ready',
@@ -142,12 +142,14 @@ class Ui:
                                'VCRedist': 'Visual C++ 运行库 安装完成！程序即将退出',
                                'NF3': '.Net Framework 安装完成！程序即将退出'}
                     txt_change(prom_name=each, menu_change=menu_change)  # 安装成功修改menu文件
-                    while True:
+                    time = 60
+                    while time:
                         try:
                             if program.window(title_re='信息').child_window(title=ok_dict[each]).exists():
                                 break
                         except:
                             sleep(1)
+                            time -= 1
                     program.window(title_re='信息').child_window(title=ok_dict[each]).wait('ready', timeout=80)
                     program.window(title_re='信息').child_window(title="确定").click_input()
                 else:
@@ -188,8 +190,8 @@ class Ui:
                                                                                                     ).wait('ready',
                                                                                                            timeout=600)
                     program.window(title_re='Microsoft Office Professional Plus 2013')['关闭Button'].click_input()
-                    office_crack(choose)  # 激活office
                     txt_change(prom_name=each, menu_change=menu_change)  # 安装成功修改menu文件
+                    office_crack(choose)  # 激活office
                 else:
                     failure.extend(format_menu(each.split()))  # 安装失败记录安装失败程序
 
@@ -282,12 +284,14 @@ class Ui:
                         3: ["完成", 'click', 90]}
 
                 Application(backend=main_window[1]).start(join(getcwd(), 'app_pkg', each, 'iqiyi_k56008174_107328.exe'))
-                while True:
+                time = 5
+                while time:
                     try:
                         program = Application(backend=main_window[1]).connect(
                             title_re=main_window[0])  # 直接打开的程序对象不能直接使用需要重新链接
                     except:
-                        pass
+                        sleep(1)
+                        time -= 1
                     else:
                         if install(main_window=main_window[0], window_backend=main_window[1], step=step,
                                    program=program,
@@ -308,12 +312,14 @@ class Ui:
                         5: ["完成(&F)", "TButton", 'click', 60]}
 
                 Application(backend=main_window[1]).start(join(getcwd(), 'app_pkg', each, each))
-                while True:
+                time = 5
+                while time:
                     try:
                         program = Application(backend=main_window[1]).connect(
                             title='安装')  # 直接打开的程序对象不能直接使用需要重新链接
                     except:
-                        pass
+                        sleep(1)
+                        time -= 1
                     else:
                         if install(main_window=main_window[0], window_backend=main_window[1], step=step,
                                    program=program,
@@ -332,11 +338,13 @@ class Ui:
                 hotkey('win', 'r')
                 hotkey('ctrl', 'v')
                 hotkey('enter')
-                while True:
+                time = 10
+                while time:
                     try:
                         ps_cc = Application().connect(path=paste())
                     except:
-                        pass
+                        sleep(1)
+                        time -= 1
                     else:
                         break
 
@@ -353,11 +361,13 @@ class Ui:
                 hotkey('win', 'r')
                 hotkey('ctrl', 'v')
                 hotkey('enter')
-                while True:
+                time = 10
+                while time:
                     try:
                         pr_cc = Application().connect(path=paste())
                     except:
-                        pass
+                        sleep(1)
+                        time -= 1
                     else:
                         break
 
@@ -380,11 +390,13 @@ class Ui:
                                           grayscale_list=grayscale, skewing_list=skewing, paste_identi=True)  # 采用全图片匹配
                 if result:
                     txt_change(prom_name=each, menu_change=menu_change)
-                    while True:
+                    time = 5
+                    while time:
                         try:
                             Application(backend='uia').connect(title='网易云音乐')
                         except:
-                            pass
+                            sleep(1)
+                            time -= 1
                         else:
                             system('taskkill /IM cloudmusic.exe /F')
                             sleep(3)
@@ -470,11 +482,14 @@ class Ui:
                 hotkey('win', 'r')
                 hotkey('ctrl', 'v')
                 hotkey('enter')
-                while True:
+
+                time = 20
+                while time:
                     try:
                         program = Application().connect(title="Autodesk 3ds Max 2014")
                     except:
-                        pass
+                        sleep(1)
+                        time -= 1
                     else:
                         break
                 if simple_install(window_backend='win32', step=step, program=program):
@@ -514,11 +529,13 @@ class Ui:
                 hotkey('ctrl', 'v')
                 hotkey('enter')
 
-                while True:
+                time = 20
+                while time:
                     try:
                         program = Application().connect(title="Autodesk® AutoCAD® 2014")
                     except:
-                        pass
+                        sleep(1)
+                        time -= 1
                     else:
                         break
                 if simple_install(window_backend='win32', step=step, program=program):
@@ -547,11 +564,13 @@ class Ui:
                     '确定Button'].exists():
                     sleep(1)
                     program.top_window()['确定Button'].click_input()
-                while True:
+                time = 10
+                while time:
                     try:
                         program = Application().connect(title="AutoCAD 2007 安装")
                     except:
-                        pass
+                        sleep(1)
+                        time -= 1
                     else:
                         break
                 step = {0: ["Button2", 'click', 10],
@@ -581,13 +600,15 @@ class Ui:
                         failure.extend(format_menu(each.split()))
                         break
                     sleep(2)
-                    while True:
+                    time = 300
+                    while time:
                         try:
                             program = Application().connect(title="AutoCAD 2007 安装程序")
                             if program.top_window()['完成(&F)'].exists():
                                 break
                         except:
                             sleep(1)
+                            time -= 1
                     step = {0: ["CheckBox", 'click', 8],
                             1: ["Button1", 'click', 6]}
                     simple_install(window_backend="win32", step=step, program=program)
@@ -598,11 +619,13 @@ class Ui:
 
             if each == "T20":
                 program = Application().start(join(getcwd(), "app_pkg", each, 'setup'))
-                while True:
+                time = 20
+                while time:
                     if program.top_window()["我接受许可证协议中的条款((&A)RadioButton"].exists():
                         break
                     else:
                         sleep(1)
+                        time -= 1
 
                 step = {0: ["我接受许可证协议中的条款((&A)RadioButton", 'click', 10],
                         1: ["下一步(&N) >Button", 'click', 6],
@@ -613,12 +636,14 @@ class Ui:
                         6: ["下一步(&N) >Button", 'click', 6]}
                 sleep_time = [0, 2, 1, 0, 0.5, 0.5, 0]
                 if simple_install(window_backend="win32", step=step, program=program, sleep_time=sleep_time):
-                    while True:
+                    time = 60
+                    while time:
                         try:
                             if program.top_window()['InstallShield Wizard 完成'].exists():
                                 break
                         except:
                             sleep(1)
+                            time -= 1
                     step = {0: ["完成Button", 'click', 10]}
                     if simple_install(window_backend="win32", step=step, program=program):
                         t20_cra(choose)
@@ -641,7 +666,7 @@ class Ui:
     def change_dir(self):
         self.choose = choose_dir()
         if self.choose is None:
-            self.choose = r'D:\Program Files (x86)'
+            self.choose = r'D:\Program Files'
         self.path.set(self.choose)
 
     def setup(self):
