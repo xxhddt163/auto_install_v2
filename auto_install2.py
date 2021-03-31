@@ -684,6 +684,9 @@ class Ui:
 
     def ui(self):
         self.root = tk.Tk()
+        self.root.attributes("-topmost", True)
+        self.root.maxsize(316, 140)
+        self.root.minsize(308, 38)
         self.root.title("程序安装工具")
 
         self.path = tk.StringVar()  # 动态显示选择的路径

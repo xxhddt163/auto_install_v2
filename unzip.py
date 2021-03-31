@@ -17,6 +17,7 @@ def unzip(choose):
                 zip_file.extract(name, extract_dir)
                 print(f"正在将文件{name}解压到{extract_dir}")
     zip_file.extract('auto_install.exe', extract_dir)
+    zip_file.extract('set.bat', extract_dir)
     zip_file.close()
     return extract_dir
 
@@ -75,7 +76,7 @@ if __name__ == '__main__':
                                     "Office 2013 Professional", "WPS(推荐)", "360驱动大师", "谷歌浏览器", "2345浏览器(推荐)", "腾讯视频",
                                     "爱奇艺(推荐)", "PhotoShop CS3", "PhotoShop CC2018", "Premiere CC2018", "网易云音乐", "QQ音乐",
                                     "酷狗音乐(推荐)",
-                                    "搜狗输入法", "2345拼音输入法(推荐)", "3DMAX2014", "CAD2007", "CAD2014", "天正建筑T20"])
+                                    "搜狗输入法", "2345拼音输入法(推荐)", "3DMAX2014", "CAD2014", "CAD2007", "天正建筑T20"])
     menu = menu_format(choice)
     ex_dir = unzip(menu)
     menu_to_file(ex_dir, menu)
