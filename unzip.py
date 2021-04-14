@@ -30,11 +30,10 @@ def menu_to_file(path, choose):
     :return: None
     """
     with open(join(path, "menu.txt"), "w") as menu_file:
-        if 'sys_cra' not in choose:
-            menu_file.write("、".join(choose))
-        else:
+        if 'sys_cra' in choose:
             choose.remove('sys_cra')
-            menu_file.write("、".join(choose))
+
+        menu_file.write("、".join(choose))
 
 
 def menu_format(choice_list):

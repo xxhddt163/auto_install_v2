@@ -19,7 +19,7 @@ def ps_crack():
                                                                                                    timeout=step[i][-1])
         if step[i][-2] == 'click':
             next_step.click_input()
-            if i == 4 or i == 6:
+            if i in [4, 6]:
                 sleep(1)
         elif step[i][-2] == 'edit':
             next_step.set_text(step[i][2])

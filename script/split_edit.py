@@ -7,13 +7,9 @@ def split_edit(program: str, main_window: str = None):
     """
     if main_window is not None:
         program.window(title_re=main_window)['Edit'].print_control_identifiers(depth=1, filename='temp.txt')
-        with open('temp.txt') as file:
-            temp = file.readlines()
-            temp_str = ''.join(temp)
-            return temp_str.split('"')[1]
-    elif main_window is None:
+    else:
         program.top_window()['Edit'].print_control_identifiers(depth=1, filename='temp.txt')
-        with open('temp.txt') as file:
-            temp = file.readlines()
-            temp_str = ''.join(temp)
-            return temp_str.split('"')[1]
+    with open('temp.txt') as file:
+        temp = file.readlines()
+        temp_str = ''.join(temp)
+        return temp_str.split('"')[1]
