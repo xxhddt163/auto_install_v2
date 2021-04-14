@@ -113,7 +113,7 @@ def auto_install():
             else:
                 failure.extend(format_menu(each.split()))  # 安装失败记录安装失败程序
 
-        if each == 'VCRedist' or each == 'DX' or each == 'NF3':
+        if each in ['VCRedist', 'DX', 'NF3']:
             main_window = "win32"
             step = {0: ["确定", 'click', 10],
                     1: ["是(&Y)", 'click', 10]}
@@ -274,11 +274,9 @@ def auto_install():
                     if install(main_window=main_window[0], window_backend=main_window[1], step=step, program=program,
                                install_path=join(choose, each), edit_value=1):
                         txt_change(prom_name=each, menu_change=menu_change)  # 安装成功修改menu文件
-                        break
                     else:
                         failure.extend(format_menu(each.split()))  # 安装失败记录安装失败程序
-                        break
-
+                    break
         if each == "PSCS3":
             main_window = ["安装 - Adobe Photoshop CS3 Extended", "win32"]
             step = {0: ["下一步(&N) >", "TButton", 'click', 10],
@@ -299,11 +297,9 @@ def auto_install():
                     if install(main_window=main_window[0], window_backend=main_window[1], step=step, program=program,
                                install_path=join(choose, each), edit_value=100, special=True):
                         txt_change(prom_name=each, menu_change=menu_change)  # 安装成功修改menu文件
-                        break
                     else:
                         failure.extend(format_menu(each.split()))  # 安装失败记录安装失败程序
-                        break
-
+                    break
         if each == "PSCC2018":  # PSCC2018打开自动安装不需要任何按钮
             if "PSCS3" in menu:  # 防止装完PSCS3马上打开程序报错
                 sleep(5)

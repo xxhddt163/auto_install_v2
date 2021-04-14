@@ -18,7 +18,7 @@ def pr_crack():
                                                                                                    timeout=step[i][-1])
         if step[i][-2] == 'click':
             next_step.click_input()
-            if i == 3 or i == 5:
+            if i in [3, 5]:
                 sleep(1)
         elif step[i][-2] == 'edit':
             next_step.set_text(step[i][2])

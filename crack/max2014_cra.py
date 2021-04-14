@@ -72,7 +72,7 @@ def cra_3dmax(install_dir: str, program_name: str):
                 hotkey('ctrl', 'v')  # 粘贴激活码
                 sleep(1)
 
-                for each in range(5):
+                for _ in range(5):
                     hotkey('tab')
                     sleep(.5)
                 hotkey('enter')
