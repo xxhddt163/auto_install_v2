@@ -17,24 +17,21 @@ def unzip(choose):
                 zip_file.extract(name, extract_dir)
                 print(f"正在将文件{name}解压到{extract_dir}")
     zip_file.extract('auto_install.exe', extract_dir)
-    zip_file.extract('set.bat', extract_dir)
     zip_file.close()
     return extract_dir
 
 
 def menu_to_file(path, choose):
     """
-    将选择的文件转换成文件
+    将选择的程序转换成文件
     :param choose: 选择的软件
     :param path: 文件保存路径
     :return: None
     """
     with open(join(path, "menu.txt"), "w") as menu_file:
-        if 'sys_cra' not in choose:
-            menu_file.write("、".join(choose))
-        else:
+        if 'sys_cra' in choose:
             choose.remove('sys_cra')
-            menu_file.write("、".join(choose))
+        menu_file.write("、".join(choose))
 
 
 def menu_format(choice_list):

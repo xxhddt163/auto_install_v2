@@ -20,7 +20,6 @@ from crack.prcc2018_cra import pr_crack
 from crack.max2014_cra import cra_3dmax
 from crack.cad2007_cra import cad2007_cra
 from crack.t20_cra import t20_cra
-# import sys
 from pyperclip import copy, paste
 import tkinter as tk
 from script.choose_dir import choose_dir
@@ -29,11 +28,10 @@ import _thread
 
 class Ui:
     def __init__(self):
-        self.choose = r'D:\Program Files'  # 安装目录
+        self.choose = r"D:\Program Files"  # 安装目录
 
     def auto_install(self):
         choose = self.choose
-        # sys.stderr = open('stdout.log', 'a')  # 错误信息输出到文件
         start_time = (strftime("%H:%M", localtime()))  # 获取运行程序时的开始时间
         failure = []  # 保存安装失败的软件名称
         menu = load_menu()  # 读取安装目录下的menu.txt获取需要安装的文件
@@ -111,7 +109,7 @@ class Ui:
                     while time:
                         try:
                             temp = Application().connect(title="WinRAR 简体中文版安装")
-                        except:
+                        except :
                             sleep(1)
                             time -= 1
                         else:  # 未抛出异常时说明程序成功链接
@@ -199,7 +197,7 @@ class Ui:
 
                 result = install_from_png(app_name=each, edit_index=2,
                                           confidence=0.8, install_path=choose, sleep_time_list=sleep_time,
-                                          grayscale_list=grayscale, skewing_list=skewing)  # 采用全图片匹配
+                                          grayscale_list=grayscale, skewing_list=skewing, paste_identi= True)  # 采用全图片匹配
                 if result:
                     txt_change(prom_name=each, menu_change=menu_change)
                 else:
@@ -674,7 +672,7 @@ class Ui:
     def change_dir(self):
         self.choose = choose_dir()
         if self.choose is None:
-            self.choose = r'D:\Program Files'
+            self.choose = r"D:\Program Files"
         self.path.set(self.choose)
 
     def setup(self):
@@ -685,9 +683,8 @@ class Ui:
     def ui(self):
         self.root = tk.Tk()
         self.root.attributes("-topmost", True)
-        self.root.maxsize(316, 140)
-        self.root.minsize(308, 38)
-        self.root.title("程序安装工具")
+        self.root.maxsize(340, 140)
+        self.root.title("程序安装工具 by:冼叔叔")
 
         self.path = tk.StringVar()  # 动态显示选择的路径
         self.path.set(self.choose)

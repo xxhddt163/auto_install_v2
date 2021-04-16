@@ -14,12 +14,16 @@ def pr_crack():
 
     pr_cra = Application().start(join(getcwd(), "app_pkg", 'PRCC2018', 'crack'))
     for i in range(len(step)):
-        next_step = pr_cra.top_window().child_window(title=step[i][0], class_name=step[i][1]).wait('ready',
+        try:
+            next_step = pr_cra.top_window().child_window(title=step[i][0], class_name=step[i][1]).wait('ready',
                                                                                                    timeout=step[i][-1])
-        if step[i][-2] == 'click':
-            next_step.click_input()
-            if i == 3 or i == 5:
-                sleep(1)
-        elif step[i][-2] == 'edit':
-            next_step.set_text(step[i][2])
+        except RuntimeError:
+            break
+        else:
+            if step[i][-2] == 'click':
+                next_step.click_input()
+                if i in [3, 5]:
+                    sleep(1)
+            elif step[i][-2] == 'edit':
+                next_step.set_text(step[i][2])
     pr_cra.kill()
