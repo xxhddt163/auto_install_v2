@@ -122,7 +122,7 @@ class Ui:
                 else:
                     failure.extend(format_menu(each.split()))  # 安装失败记录安装失败程序
 
-            if each == 'VCRedist' or each == 'DX' or each == 'NF3':
+            if each in ['VCRedist', 'DX', 'NF3']:
                 main_window = "win32"
                 step = {0: ["确定", 'click', 10],
                         1: ["是(&Y)", 'click', 10]}
@@ -291,11 +291,9 @@ class Ui:
                                    program=program,
                                    install_path=join(choose, each), edit_value=1):
                             txt_change(prom_name=each, menu_change=menu_change)  # 安装成功修改menu文件
-                            break
                         else:
                             failure.extend(format_menu(each.split()))  # 安装失败记录安装失败程序
-                            break
-
+                        break
             if each == "PSCS3":
                 main_window = ["安装 - Adobe Photoshop CS3 Extended", "win32"]
                 step = {0: ["下一步(&N) >", "TButton", 'click', 10],
@@ -319,11 +317,9 @@ class Ui:
                                    program=program,
                                    install_path=join(choose, each), edit_value=100, special=True):
                             txt_change(prom_name=each, menu_change=menu_change)  # 安装成功修改menu文件
-                            break
                         else:
                             failure.extend(format_menu(each.split()))  # 安装失败记录安装失败程序
-                            break
-
+                        break
             if each == "PSCC2018":  # PSCC2018打开自动安装不需要任何按钮
                 if "PSCS3" in menu:  # 防止装完PSCS3马上打开程序报错
                     sleep(5)
@@ -621,9 +617,8 @@ class Ui:
                 while time:
                     if program.top_window()["我接受许可证协议中的条款((&A)RadioButton"].exists():
                         break
-                    else:
-                        sleep(1)
-                        time -= 1
+                    sleep(1)
+                    time -= 1
 
                 step = {0: ["我接受许可证协议中的条款((&A)RadioButton", 'click', 10],
                         1: ["下一步(&N) >Button", 'click', 6],
@@ -651,17 +646,14 @@ class Ui:
 
         end_time = strftime("%H:%M", localtime())  # 获取程序安装结束时的时间
         menu = format_menu(menu)
+        labelframe1 = tk.LabelFrame(self.root, text="", height=80, width=300)  # 信息区
+        labelframe1.grid(row=1, column=0, columnspan=10, padx=10, pady=10)
+        labelframe1.propagate(0)  # 使组件大小不变，此时width才起作用
         if len(failure) != 0:
-            labelframe1 = tk.LabelFrame(self.root, text="", height=80, width=300)  # 信息区
-            labelframe1.grid(row=1, column=0, columnspan=10, padx=10, pady=10)
-            labelframe1.propagate(0)  # 使组件大小不变，此时width才起作用
             tk.Label(labelframe1,
                      text=f"程序安装完毕，用时{running_time(start_time, end_time)}分钟，共选择了{len(menu)}个软件,\n安装失败的软件为：{','.join(failure)}",
                      font=(', 8')).pack(fill="both", expand="yes")
-        elif len(failure) == 0:
-            labelframe1 = tk.LabelFrame(self.root, text="", height=80, width=300)  # 信息区
-            labelframe1.grid(row=1, column=0, columnspan=10, padx=10, pady=10)
-            labelframe1.propagate(0)  # 使组件大小不变，此时width才起作用
+        else:
             tk.Label(labelframe1,
                      text=f"程序安装完毕，用时{running_time(start_time, end_time)}分钟，共选择了{len(menu)}个软件",
                      font=(', 10')).pack(fill="both", expand="yes")

@@ -12,6 +12,7 @@ def install_from_png(app_name: str, confidence: int or float,
                      sleep_time_list: list, grayscale_list: list, skewing_list: list,
                      paste_identi: bool = False, png_file_name: str = "_shot",
                      coordinate: bool = False, edit_index: int = None, install_path: str = None) -> bool or tuple:
+    # sourcery no-metrics
     """
     :param coordinate: True 就返回获取到的坐标值不执行任何操作
     :param png_file_name: png图片文件夹名称后缀

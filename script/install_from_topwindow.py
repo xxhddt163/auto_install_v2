@@ -3,9 +3,16 @@ from os import remove
 from time import sleep
 
 
-def install_from_topwindow(window_backend: str, step: dict, program: str, install_path: str,
+def install_from_topwindow(window_backend: str,
+                           step: dict,
+                           program: str,
+                           install_path: str,
                            edit_value: int or None = None,
-                           special: bool = False, edit_with_dict: bool = False, sleep_time: list or None = None):
+                           special: bool = False,
+                           edit_with_dict: bool = False,
+                           sleep_time: list or None = None) -> bool:
+    # sourcery no-metrics
+
     """
     通过window名判定程序是否就绪进行安装
     :param sleep_time: 等待时间
@@ -16,7 +23,7 @@ def install_from_topwindow(window_backend: str, step: dict, program: str, instal
     :param step: 程序运行步骤
     :param program: 已运行程序的对象
     :param install_path: 程序安装目录
-    :return: None
+    :return: bool
     """
 
     for i in range(len(step.keys())):
@@ -39,15 +46,12 @@ def install_from_topwindow(window_backend: str, step: dict, program: str, instal
                     if sleep_time is not None:
                         sleep(float(sleep_time[i]))
                 elif step[i][2] == 'edit':
-                    if not edit_with_dict:
-                        text_edit(obj=next_step, backend=window_backend, path=install_path)
-                        if sleep_time is not None:
-                            sleep(float(sleep_time[i]))
-                    elif edit_with_dict:
+                    if edit_with_dict:
                         text_edit2(obj=next_step, backend=window_backend, edit_object=step[i][3])
-                        if sleep_time is not None:
-                            sleep(float(sleep_time[i]))
-
+                    else:
+                        text_edit(obj=next_step, backend=window_backend, path=install_path)
+                    if sleep_time is not None:
+                        sleep(float(sleep_time[i]))
             if not special:  # 仅通过title判定
                 next_step = program.top_window().child_window(title=step[i][0]).wait('ready',
                                                                                      timeout=step[i][-1])
@@ -56,20 +60,20 @@ def install_from_topwindow(window_backend: str, step: dict, program: str, instal
                     if sleep_time is not None:
                         sleep(float(sleep_time[i]))
                 elif step[i][1] == 'edit':
-                    if not edit_with_dict:
-                        text_edit(obj=next_step, backend=window_backend, path=install_path)
-                        if sleep_time is not None:
-                            sleep(float(sleep_time[i]))
-                    elif edit_with_dict:
+                    if edit_with_dict:
                         text_edit2(obj=next_step, backend=window_backend, edit_object=step[i][2])
-                        if sleep_time is not None:
-                            sleep(float(sleep_time[i]))
+                    else:
+                        text_edit(obj=next_step, backend=window_backend, path=install_path)
+                    if sleep_time is not None:
+                        sleep(float(sleep_time[i]))
         except RuntimeError:
             return False
     return True
 
 
-def text_edit(obj: str, backend: str, path: str):
+def text_edit(obj: str,
+              backend: str,
+              path: str):
     """将edit中的内容修改为安装路径
     :param obj: 已经准备就绪的按钮或编辑框对象
     :param backend: 程序的运行模式 win32 or uia
@@ -85,7 +89,9 @@ def text_edit(obj: str, backend: str, path: str):
         obj.type_keys(path, with_spaces=True)
 
 
-def text_edit2(obj: str, backend: str, edit_object: str):
+def text_edit2(obj: str,
+               backend: str,
+               edit_object: str):
     """将edit中的内容修改为指定内容
     :param edit_object: 将edit的内容填写为edit_object的值
     :param obj: 已经准备就绪的按钮或编辑框对象

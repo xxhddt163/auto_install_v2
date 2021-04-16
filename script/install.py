@@ -41,15 +41,12 @@ def install(main_window: str, window_backend: str, step: dict, program: str, ins
                     if sleep_time is not None:
                         sleep(float(sleep_time[i]))
                 elif step[i][2] == 'edit':
-                    if not edit_with_dict:
-                        text_edit(obj=next_step, backend=window_backend, path=install_path)
-                        if sleep_time is not None:
-                            sleep(float(sleep_time[i]))
-                    elif edit_with_dict:
+                    if edit_with_dict:
                         text_edit2(obj=next_step, backend=window_backend, edit_object=step[i][3])
-                        if sleep_time is not None:
-                            sleep(float(sleep_time[i]))
-
+                    else:
+                        text_edit(obj=next_step, backend=window_backend, path=install_path)
+                    if sleep_time is not None:
+                        sleep(float(sleep_time[i]))
             if not special:  # 仅通过title判定
                 next_step = program.window(title_re=main_window).child_window(title=step[i][0]).wait('ready',
                                                                                                      timeout=step[i][
@@ -59,14 +56,12 @@ def install(main_window: str, window_backend: str, step: dict, program: str, ins
                     if sleep_time is not None:
                         sleep(float(sleep_time[i]))
                 elif step[i][1] == 'edit':
-                    if not edit_with_dict:
-                        text_edit(obj=next_step, backend=window_backend, path=install_path)
-                        if sleep_time is not None:
-                            sleep(float(sleep_time[i]))
-                    elif edit_with_dict:
+                    if edit_with_dict:
                         text_edit2(obj=next_step, backend=window_backend, edit_object=step[i][2])
-                        if sleep_time is not None:
-                            sleep(float(sleep_time[i]))
+                    else:
+                        text_edit(obj=next_step, backend=window_backend, path=install_path)
+                    if sleep_time is not None:
+                        sleep(float(sleep_time[i]))
         except RuntimeError:
             return False
     return True
