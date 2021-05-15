@@ -5,6 +5,7 @@ from os import getcwd
 from os import system
 from pywinauto import Application
 from pyautogui import hotkey
+
 from script.load_menu import load_menu
 from script.format_menu import format_menu
 from script.running_time import running_time
@@ -14,15 +15,19 @@ from script.txt_change import txt_change
 from script.install import install
 from script.install_from_topwindow import install_from_topwindow
 from script.simple_install import simple_install
+from script.system_info import system_info
+from script.choose_dir import choose_dir
+
 from crack.office2013_cra import office_crack
 from crack.pscc2018_cra import ps_crack
 from crack.prcc2018_cra import pr_crack
 from crack.max2014_cra import cra_3dmax
 from crack.cad2007_cra import cad2007_cra
 from crack.t20_cra import t20_cra
+
 from pyperclip import copy, paste
 import tkinter as tk
-from script.choose_dir import choose_dir
+
 import _thread
 
 
@@ -82,7 +87,7 @@ class Ui:
 
             if each == 'Dtalk':
                 main_window = ["钉钉 安装", "win32"]
-                step = {0: ["下一步(&N) >", 'click', 30],
+                step = {0: ["下一步(&N) >", 'click', 50],
                         1: ["", 'edit', 6],
                         2: ["下一步(&N) >", 'click', 6],
                         3: ["运行 钉钉(&R)", 'click', 40],
@@ -195,9 +200,10 @@ class Ui:
 
                 Application().start(join(getcwd(), "app_pkg", 'WPS', 'wpssetup_k56008174_281235.exe'))  # 打开指定的安装程序
 
-                result = install_from_png(app_name=each, edit_index=2,
+                png_file_name = "_shot" if system_info() == "10" else "_shot_win7"
+                result = install_from_png(app_name=each, edit_index=2, png_file_name=png_file_name,
                                           confidence=0.8, install_path=choose, sleep_time_list=sleep_time,
-                                          grayscale_list=grayscale, skewing_list=skewing, paste_identi= True)  # 采用全图片匹配
+                                          grayscale_list=grayscale, skewing_list=skewing, paste_identi=True)  # 采用全图片匹配
                 if result:
                     txt_change(prom_name=each, menu_change=menu_change)
                 else:
