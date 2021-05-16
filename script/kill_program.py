@@ -2,7 +2,7 @@ from pywinauto import Application
 from time import sleep
 
 
-def kill_program(title: str or list, backend: str = "win32", time: int = 10) -> None:
+def kill_program(title: str or list, backend: str = "win32", time: int = 30) -> None:
     """
     链接自启动的程序并关闭
     :param time: 链接程序等待时间
