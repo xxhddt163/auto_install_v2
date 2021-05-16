@@ -11,7 +11,7 @@ def kill_program(title: str or list, backend: str = "win32", time: int = 30) -> 
     :return: None
     """
     if type(title) is str:  # 结束的进程只有单个标题
-        while time:
+        while time >= 0:
             try:
                 temp = Application(backend=backend).connect(title=title)
             except:
@@ -21,16 +21,15 @@ def kill_program(title: str or list, backend: str = "win32", time: int = 30) -> 
                 temp.kill()
                 break
     else:  # 结束的进程有多个标题
-        while time:
+        while time >= 0:
             for each in title:
                 try:
                     temp = Application().connect(title=each)
                 except:
                     if time <= 0:
                         break
-                    else:
-                        sleep(1)
-                        time -= 1
+                    sleep(1)
+                    time -= 1
                 else:
                     temp.kill()
                     time = 0

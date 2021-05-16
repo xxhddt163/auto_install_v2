@@ -111,7 +111,7 @@ class Ui:
                 if install(main_window=main_window[0], window_backend=main_window[1], step=step, program=program,
                            install_path=join(choose, each), edit_value=0, special=True):
                     time = 6
-                    while time:
+                    while time >= 0:
                         try:
                             temp = Application().connect(title="WinRAR 简体中文版安装")
                         except :
@@ -141,7 +141,7 @@ class Ui:
                                'NF3': '.Net Framework 安装完成！程序即将退出'}
                     txt_change(prom_name=each, menu_change=menu_change)  # 安装成功修改menu文件
                     time = 60
-                    while time:
+                    while time >= 0:
                         try:
                             if program.window(title_re='信息').child_window(title=ok_dict[each]).exists():
                                 break
@@ -285,7 +285,7 @@ class Ui:
 
                 Application(backend=main_window[1]).start(join(getcwd(), 'app_pkg', each, 'iqiyi_k56008174_107328.exe'))
                 time = 5
-                while time:
+                while time >= 0:
                     try:
                         program = Application(backend=main_window[1]).connect(
                             title_re=main_window[0])  # 直接打开的程序对象不能直接使用需要重新链接
@@ -312,7 +312,7 @@ class Ui:
 
                 Application(backend=main_window[1]).start(join(getcwd(), 'app_pkg', each, each))
                 time = 5
-                while time:
+                while time >= 0:
                     try:
                         program = Application(backend=main_window[1]).connect(
                             title='安装')  # 直接打开的程序对象不能直接使用需要重新链接
@@ -337,7 +337,7 @@ class Ui:
                 hotkey('ctrl', 'v')
                 hotkey('enter')
                 time = 10
-                while time:
+                while time >= 0:
                     try:
                         ps_cc = Application().connect(path=paste())
                     except:
@@ -362,7 +362,7 @@ class Ui:
                 hotkey('ctrl', 'v')
                 hotkey('enter')
                 time = 10
-                while time:
+                while time >= 0:
                     try:
                         pr_cc = Application().connect(path=paste())
                     except:
@@ -393,7 +393,7 @@ class Ui:
                 if result:
                     txt_change(prom_name=each, menu_change=menu_change)
                     time = 5
-                    while time:
+                    while time >= 0:
                         try:
                             Application(backend='uia').connect(title='网易云音乐')
                         except:
@@ -502,7 +502,7 @@ class Ui:
                 hotkey('enter')
 
                 time = 20
-                while time:
+                while time >= 0:
                     try:
                         program = Application().connect(title="Autodesk 3ds Max 2014")
                     except:
@@ -548,7 +548,7 @@ class Ui:
                 hotkey('enter')
 
                 time = 20
-                while time:
+                while time >= 0:
                     try:
                         program = Application().connect(title="Autodesk® AutoCAD® 2014")
                     except:
@@ -583,7 +583,7 @@ class Ui:
                     sleep(1)
                     program.top_window()['确定Button'].click_input()
                 time = 10
-                while time:
+                while time >= 0:
                     try:
                         program = Application().connect(title="AutoCAD 2007 安装")
                     except:
@@ -619,7 +619,7 @@ class Ui:
                         break
                     sleep(2)
                     time = 300
-                    while time:
+                    while time >= 0:
                         try:
                             program = Application().connect(title="AutoCAD 2007 安装程序")
                             if program.top_window()['完成(&F)'].exists():
@@ -638,7 +638,7 @@ class Ui:
             if each == "T20":
                 program = Application().start(join(getcwd(), "app_pkg", each, 'setup'))
                 time = 20
-                while time:
+                while time >= 0:
                     if program.top_window()["我接受许可证协议中的条款((&A)RadioButton"].exists():
                         break
                     sleep(1)
@@ -654,7 +654,7 @@ class Ui:
                 sleep_time = [0, 2, 1, 0, 0.5, 0.5, 0]
                 if simple_install(window_backend="win32", step=step, program=program, sleep_time=sleep_time):
                     time = 60
-                    while time:
+                    while time >= 0:
                         try:
                             if program.top_window()['InstallShield Wizard 完成'].exists():
                                 break
