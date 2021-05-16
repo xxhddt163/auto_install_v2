@@ -300,6 +300,7 @@ class Ui:
                         else:
                             failure.extend(format_menu(each.split()))  # 安装失败记录安装失败程序
                         break
+
             if each == "PSCS3":
                 main_window = ["安装 - Adobe Photoshop CS3 Extended", "win32"]
                 step = {0: ["下一步(&N) >", "TButton", 'click', 10],
@@ -326,6 +327,7 @@ class Ui:
                         else:
                             failure.extend(format_menu(each.split()))  # 安装失败记录安装失败程序
                         break
+
             if each == "PSCC2018":  # PSCC2018打开自动安装不需要任何按钮
                 if "PSCS3" in menu:  # 防止装完PSCS3马上打开程序报错
                     sleep(5)
@@ -433,6 +435,22 @@ class Ui:
                 if result:
                     txt_change(prom_name=each, menu_change=menu_change)
                     kill_program(title='酷狗音乐', backend='uia')
+                else:
+                    failure.extend(format_menu(each.split()))
+
+            if each == "Xunlei":
+                sleep_time = [3, 3]  # 各图片的等待时间
+                grayscale = [True, True]  # 各图片是否使用灰度搜索
+                skewing = [[-50, 0], [0, 0]]  # x、y坐标偏移
+
+                Application().start(join(getcwd(), "app_pkg", each, each))  # 打开指定的安装程序
+
+                result = install_from_png(app_name=each, edit_index=0,
+                                          confidence=0.8, install_path=choose, sleep_time_list=sleep_time,
+                                          grayscale_list=grayscale, skewing_list=skewing, paste_identi=True)  # 采用全图片匹配
+                if result:
+                    txt_change(prom_name=each, menu_change=menu_change)
+                    kill_program(title='迅雷', backend='uia')
                 else:
                     failure.extend(format_menu(each.split()))
 

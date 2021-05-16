@@ -57,7 +57,8 @@ def menu_format(choice_list):
                 "PhotoShop CS3": "PSCS3",
                 "PhotoShop CC2018": "PSCC2018",
                 "Office 2013 Professional": "OFFICE2013",
-                "Premiere CC2018": "PRCC2018"
+                "Premiere CC2018": "PRCC2018",
+                "迅雷11": "Xunlei"
                 }
 
     menu_temp = choice_list.copy()
@@ -72,7 +73,7 @@ if __name__ == '__main__':
                            choices=["系统优化", "QQ", "微信", "钉钉", "Winrar", "VCRedist", "Net Farmework3", "DirectX9",
                                     "Office 2013 Professional", "WPS(推荐)", "360驱动大师", "谷歌浏览器", "2345浏览器(推荐)", "腾讯视频",
                                     "爱奇艺(推荐)", "PhotoShop CS3", "PhotoShop CC2018", "Premiere CC2018", "网易云音乐", "QQ音乐",
-                                    "酷狗音乐(推荐)",
+                                    "酷狗音乐(推荐)", "迅雷11",
                                     "搜狗输入法", "2345拼音输入法(推荐)", "3DMAX2014", "CAD2014", "CAD2007", "天正建筑T20"])
     menu = menu_format(choice)
     ex_dir = unzip(menu)
