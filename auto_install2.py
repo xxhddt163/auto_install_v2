@@ -423,7 +423,7 @@ class Ui:
                     failure.extend(format_menu(each.split()))
 
             if each == "Kugou":
-                sleep_time = [5, 1, 1, 1, 1, 1, 8]  # 各图片的等待时间
+                sleep_time = [5, 1, 1, 1, 1, 1, 10]  # 各图片的等待时间
                 grayscale = [True, True, True, True, True, True, True]  # 各图片是否使用灰度搜索
                 skewing = [[0, 0], [-250, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]  # x、y坐标偏移
 
