@@ -35,12 +35,15 @@ def check_files():  # 文件检查
     print("正在检查存档文件个数......")
     os.chdir(fr'C:\Users\{username}\Zomboid\Saves_back')
     print(fr"C:\Users\{username}\Zomboid\Saves_back目录下一共有{len(os.listdir(os.getcwd()))}个存档")
+    cache = os.listdir(os.getcwd())  # 获取当前目录下的所有存档文件名
+    cache.sort(key=lambda x: os.lstat(x).st_ctime)  # 所有存档文件按C-time进行排序
     while True:
         if len(os.listdir(os.getcwd())) < 10:
             break
-        target_file = os.listdir(os.getcwd())[0]
+        target_file = cache[0]  # 列表中的第一个存档肯定为创建时间最早的存档
         print(f"存档文件大于10个、正在删除存档文件：{target_file}")
         os.remove(os.path.join(fr'C:\Users\{username}\Zomboid\Saves_back', target_file))
+        del cache[0]
 
 
 def main():
