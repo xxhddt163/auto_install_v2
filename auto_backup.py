@@ -3,6 +3,8 @@ import zipfile
 import time
 from getpass import getuser
 
+max_file = int(input("输入最多保存的存档数："))
+sleep_time = int(input("输入存档备份间隔时间（分钟）"))
 username = getuser()  # 当前用户名
 print(fr"当前用户名为{username},游戏存档目录为C:\Users\{username}\Zomboid\Saves")
 
@@ -41,7 +43,7 @@ def check_files():  # 文件检查
     cache = os.listdir(os.getcwd())  # 获取当前目录下的所有存档文件名
     cache.sort(key=lambda x: os.lstat(x).st_ctime)  # 所有存档文件按C-time进行排序
     while True:
-        if len(os.listdir(os.getcwd())) < 10:
+        if len(os.listdir(os.getcwd())) < max_file:
             break
         target_file = cache[0]  # 列表中的第一个存档肯定为创建时间最早的存档
         print(f"存档文件大于10个、正在删除存档文件：{target_file}")
@@ -54,7 +56,7 @@ def main():
         check_dir()
         check_files()
         zip()
-        time.sleep(300)
+        time.sleep(sleep_time * 60)
 
 
 if __name__ == '__main__':
