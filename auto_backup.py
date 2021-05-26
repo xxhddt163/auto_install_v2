@@ -23,8 +23,11 @@ def zip():
     file_name = time.strftime('%Y%m%d%H%M') + '.zip'
     f = zipfile.ZipFile(os.path.join(fr'C:\Users\{username}\Zomboid', 'Saves_back', file_name), 'w')
     for root_dir, dir_list, file_list in os.walk(os.path.join(os.getcwd(), 'Saves')):
-        for name in file_list:
-            target_file = os.path.join(root_dir, name)
+        for name in dir_list:  # 备份所有目录包括空目录
+            target_file = os.path.join(root_dir.lstrip(fr'C:\Users\{username}\Zomboid'), name)
+            f.write(target_file, target_file, zipfile.ZIP_DEFLATED)
+        for name in file_list:  # 备份所有文件
+            target_file = os.path.join(root_dir.lstrip(fr'C:\Users\{username}\Zomboid'), name)
             f.write(target_file, target_file, zipfile.ZIP_DEFLATED)
 
     f.close()
