@@ -33,7 +33,7 @@ def zip():
             f.write(target_file, target_file, zipfile.ZIP_DEFLATED)
 
     f.close()
-    print("存档备份完毕，5分钟后将再次备份")
+    print(f"存档备份完毕，{sleep_time}分钟后将再次备份")
 
 
 def check_files():  # 文件检查
